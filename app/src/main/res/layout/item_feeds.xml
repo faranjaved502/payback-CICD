@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="model"
+            type="com.hamza.payback.data.feed.domain.Feeds" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_feeds"
+    android:layout_marginBottom="@dimen/dimen_16"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_user"
+        android:layout_width="@dimen/dimen_50"
+        android:layout_height="@dimen/dimen_50"
+        load_image="@{model.userImageURL}"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginStart="@dimen/dimen_10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_heading"
+        style="@style/text_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/iv_user"
+        app:layout_constraintTop_toTopOf="@+id/iv_user"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_user"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:text="@{model.user}" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_180"
+        app:layout_constraintTop_toBottomOf="@+id/iv_user"
+        app:layout_constraintStart_toStartOf="parent"
+        load_image="@{model.previewURL}"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/dimen_10"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+
+<!--     Text styles-->
+    <style name="headingH1" >
+        <item name="fontFamily">@font/robotobold</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/headingH1</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="heading" >
+        <item name="fontFamily">@font/robotobold</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textSize">@dimen/heading</item>
+    </style>
+
+    <style name="text" >
+        <item name="fontFamily">@font/robotoregular</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/text</item>
+        <item name="android:textCursorDrawable">@null</item>
+
+    </style>
+    <style name="text_bold" >
+        <item name="fontFamily">@font/robotobold</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/text_bold</item>
+    </style>
+
+</resources>

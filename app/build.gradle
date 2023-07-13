@@ -1,0 +1,109 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.hamza.payback'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.hamza.payback"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+}
+
+dependencies {
+    def mockitoVersion = '4.6.1'
+    def mockitoInLineVersion = '3.11.2'
+    def mockitoAndroidVersion = '2.25.0'
+    // This need to be validated. Risk and maintenance
+    def mockitokotlinNhaarmanVersion = '2.2.0'
+
+    def coroutinesVersion = '1.7.0'
+
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+
+    // Glide to load images
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Hilt dependency injection
+    implementation("com.google.dagger:hilt-android:2.46.1")
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
+    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
+
+    //Moshi
+    implementation "com.squareup.moshi:moshi:1.14.0"
+    implementation "com.squareup.moshi:moshi-adapters:1.14.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+
+    //Moshi tools
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    //Mockito
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitokotlinNhaarmanVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoInLineVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
+
+    // For instrumentation tests
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.46.1'
+    kaptAndroidTest 'com.google.dagger:hilt-compiler:2.46.1'
+    androidTestImplementation 'com.google.truth:truth:1.1.3'
+    androidTestImplementation 'androidx.test:core-ktx:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // For local unit tests
+    testImplementation 'com.google.dagger:hilt-android-testing:2.46.1'
+    kaptTest 'com.google.dagger:hilt-compiler:2.46.1'
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "androidx.test:core:1.5.0"
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.8.0"
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:1.8.20"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+}
