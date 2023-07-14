@@ -28,7 +28,7 @@ class FeedsViewModel @Inject constructor(
         imageType: String,
         pretty: Boolean
     ) {
-        _showLoader.value = true
+        _showLoader.value = false
         viewModelScope.launch {
             val result = feedsUseCase.execute(
                 FeedsUseCase.Params(key, query, imageType, pretty)
