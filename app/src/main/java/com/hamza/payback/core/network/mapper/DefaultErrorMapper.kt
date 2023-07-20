@@ -20,7 +20,7 @@ class DefaultErrorMapper : ErrorMapper {
             val errorResponse = adapter.fromJson(response.string())
             errorResponse?.error?.let {
                 Error(
-                    it.code ?:  "",
+                    it.code ?: "",
                     it.message ?: "",
                     ErrorType.HTTP
                 )
