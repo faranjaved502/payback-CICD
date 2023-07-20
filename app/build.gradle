@@ -21,7 +21,7 @@ project.afterEvaluate {
                 def testTaskName = "test${capVariantName}UnitTest"
 
                 println("Task -> $testTaskName")
-                tasks.create(name: "test${capVariantName}UnitTestCoverage", type: JacocoReport, dependsOn: testTaskName) {
+                tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: testTaskName) {
                     /* tasks.register < JacocoReport > ("${testTaskName}Coverage") {
                          dependsOn(tasks.findByName(testTaskName))*/
 
@@ -113,13 +113,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            testCoverageEnabled true
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     buildFeatures {

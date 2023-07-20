@@ -1,1 +1,2 @@
 # payback-CICD
+[![Build Status](https://app.bitrise.io/app/7971f544-d769-4853-9927-13b77228e4d6/status.svg?token=gIYgmLWa0tNhCbFoJ6Y5xA&branch=master)](https://app.bitrise.io/app/7971f544-d769-4853-9927-13b77228e4d6)
