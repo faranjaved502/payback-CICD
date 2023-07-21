@@ -1,0 +1,8 @@
+codecov:
+  coverage:
+    status:
+      project:
+        default:
+          target: 50% # Set the desired code coverage threshold
+          paths:
+            - build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
