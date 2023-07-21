@@ -12,6 +12,10 @@ jacoco {
     toolVersion = "0.8.8"
 }
 
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
 project.afterEvaluate {
     (android.hasProperty('applicationVariants') ? android.'applicationVariants' : android.'libraryVariants')
             .all { variant ->
@@ -22,9 +26,10 @@ project.afterEvaluate {
 
                 println("Task -> $testTaskName")
                 tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: testTaskName) {
-                    /* tasks.register < JacocoReport > ("${testTaskName}Coverage") {
-                         dependsOn(tasks.findByName(testTaskName))*/
-
+                    //task jacocoTestReport( type: JacocoReport, dependsOn: [testTaskName 'createDebugCoverageReport']) {
+                     /*tasks.register < JacocoReport > ("${testTaskName}Coverage") {
+                         dependsOn(tasks.findByName(testTaskName))
+*/
                     group = "Reporting"
                     description = "Generate Jacoco coverage reports on the ${variantName} build."
 
@@ -73,20 +78,24 @@ project.afterEvaluate {
                             "**/*Screen*.*"
                     ]
 
-                    def javaTree = fileTree("${project.buildDir}/intermediates/javac/$variantName/classes") {
-                        exclude(fileFilter)
-                    }
-                    def kotlinTree = fileTree("${project.buildDir}/tmp/kotlin-classes/$variantName") {
-                        exclude(fileFilter)
-                    }
-                    classDirectories.setFrom(files(javaTree, kotlinTree))
+                         def javaTree = "${project.buildDir}/intermediates/javac/${variantName}/classes"
+                         def kotlinTree = "${project.buildDir}/tmp/kotlin-classes/${variantName}"
+                         def javaClasses = fileTree(dir: javaTree, excludes: fileFilter)
+                         def kotlinClasses = fileTree(dir: kotlinTree, excludes: fileFilter)
+                         classDirectories.from = files([javaClasses, kotlinClasses])
 
-                    executionData.setFrom(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
+                         def coverageSourceDirs = [
+                                 "${project.projectDir}/src/main/java",
+                                 "${project.projectDir}/src/$variantName/java",
+                                 "${project.projectDir}/src/$buildTypeName/java"
+                         ]
 
-                    def coverageSourceDirs = [
-                            "${project.projectDir}/src/main/java",
-                            "${project.projectDir}/src/$buildTypeName/java"
-                    ]
+                         executionData.from = files(["${project.buildDir}/jacoco/${testTaskName}.exec"])
+
+                        /* def sourceDirs = [
+                                 "src/main/java",
+                                           "src/$variantName/java",
+                                           "src/$buildTypeName/java"]*/
 
                     sourceDirectories.setFrom(files(coverageSourceDirs))
                     additionalSourceDirs.setFrom(files(coverageSourceDirs))
@@ -114,9 +123,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            testCoverageEnabled true
+            enableUnitTestCoverage true
         }
     }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+        unitTests.returnDefaultValues = true
+    }
+
+    /*testOptions {
+        //execution 'ANDROIDX_TEST_ORCHESTRATOR'
+        animationsDisabled true
+
+        unitTests {
+            includeAndroidResources = true
+        }
+    }*/
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
